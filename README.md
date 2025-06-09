@@ -73,14 +73,5 @@ Each application demonstrates different aspects of data analysis:
 4. **API Integration** - Real-time data from multiple sources
 5. **Database Management** - SQL operations and database design
 
-##  Getting Started
-
-1. Clone the repository
-2. Open any `index.html` file in a web browser
-3. Or use Live Server for development
-
-```bash
-git clone https://github.com/your-username/data-analysis-portfolio.git
-cd data-analysis-portfolio
 
 
