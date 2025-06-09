@@ -37,7 +37,7 @@ Each application demonstrates different aspects of data analysis:
 4. **API Integration** - Real-time data from multiple sources
 5. **Database Management** - SQL operations and database design
 
-## 🎯 Getting Started
+##  Getting Started
 
 1. Clone the repository
 2. Open any `index.html` file in a web browser
