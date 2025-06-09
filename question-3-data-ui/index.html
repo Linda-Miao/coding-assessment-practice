@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Data UI - Question 3</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background-gradient"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">📊</span>
+                    <h1>Excel Data UI</h1>
+                </div>
+                <p class="subtitle">Advanced spreadsheet data viewer and editor</p>
+            </div>
+            <div class="header-right">
+                <button id="exportBtn" class="btn btn-primary" disabled>
+                    <span>💾</span> Export Data
+                </button>
+                <button id="createChartBtn" class="btn btn-secondary" disabled>
+                    <span>📈</span> Create Chart
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Upload Section -->
+        <div id="uploadSection" class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <h2>Upload Excel File</h2>
+                <p>Drag and drop your Excel file here or click to browse</p>
+                <p class="supported-formats">Supported: .xlsx, .xls</p>
+                <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
+                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                    Choose File
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loadingSection" class="loading-section" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Processing Excel file...</p>
+        </div>
+
+        <!-- Data View Section -->
+        <div id="dataSection" class="data-section" style="display: none;">
+            <!-- Controls -->
+            <div class="controls-bar">
+                <div class="controls-left">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="🔍 Search data...">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="columnFilter">
+                            <option value="">Filter by column...</option>
+                        </select>
+                        <input type="text" id="filterValue" placeholder="Filter value...">
+                    </div>
+                </div>
+                <div class="controls-right">
+                    <div class="view-controls">
+                        <button id="gridViewBtn" class="btn btn-small active">📋 Grid</button>
+                        <button id="chartViewBtn" class="btn btn-small">📊 Chart</button>
+                    </div>
+                    <div class="info-badge" id="dataInfo">0 rows</div>
+                </div>
+            </div>
+
+            <!-- Sheet Tabs -->
+            <div class="sheet-tabs" id="sheetTabs">
+                <!-- Tabs will be generated dynamically -->
+            </div>
+
+            <!-- Data Display Area -->
+            <div id="gridView" class="data-display">
+                <div class="table-container">
+                    <table id="dataTable" class="data-table">
+                        <!-- Table will be populated dynamically -->
+                    </table>
+                </div>
+            </div>
+
+            <!-- Chart View -->
+            <div id="chartView" class="chart-display" style="display: none;">
+                <div class="chart-controls">
+                    <div class="chart-config">
+                        <div class="config-group">
+                            <label>Chart Type:</label>
+                            <select id="chartType">
+                                <option value="line">Line Chart</option>
+                                <option value="bar">Bar Chart</option>
+                                <option value="pie">Pie Chart</option>
+                                <option value="doughnut">Doughnut Chart</option>
+                            </select>
+                        </div>
+                        <div class="config-group">
+                            <label>X-Axis Column:</label>
+                            <select id="xAxisColumn"></select>
+                        </div>
+                        <div class="config-group">
+                            <label>Y-Axis Column:</label>
+                            <select id="yAxisColumn"></select>
+                        </div>
+                        <button id="generateChartBtn" class="btn btn-primary">Generate Chart</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="dataChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="message success" style="display: none;">
+            <span class="message-icon">✅</span>
+            <span class="message-text"></span>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="message error" style="display: none;">
+            <span class="message-icon">❌</span>
+            <span class="message-text"></span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Excel Data UI - Advanced spreadsheet processing and visualization</p>
+        <p>Built with SheetJS and Chart.js</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

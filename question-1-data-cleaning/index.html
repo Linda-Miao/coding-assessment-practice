@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 1 - Data Cleaning</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Data Cleaning Challenge</h1>
+            <p>Clean and validate the customer data from CSV</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <h2>1. Load CSV Data</h2>
+                <input type="file" id="csvFile" accept=".csv">
+                <button id="loadData">Load Data</button>
+            </section>
+
+            <section class="data-display">
+                <h2>2. Raw Data</h2>
+                <div id="rawDataContainer">
+                    <p>No data loaded yet...</p>
+                </div>
+            </section>
+
+            <section class="cleaning-controls">
+                <h2>3. Data Cleaning Options</h2>
+                <div class="controls">
+                    <button id="removeEmpty">Remove Empty Rows</button>
+                    <button id="validateEmails">Validate Emails</button>
+                    <button id="standardizePhones">Standardize Phone Numbers</button>
+                    <button id="cleanAll">Clean All Data</button>
+                </div>
+            </section>
+
+            <section class="cleaned-data">
+                <h2>4. Cleaned Data</h2>
+                <div id="cleanedDataContainer">
+                    <p>Click "Clean All Data" to see results...</p>
+                </div>
+            </section>
+
+            <section class="stats">
+                <h2>5. Cleaning Summary</h2>
+                <div id="statsContainer">
+                    <div class="stat-item">
+                        <span class="stat-label">Original Rows:</span>
+                        <span id="originalRows">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Cleaned Rows:</span>
+                        <span id="cleanedRows">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Invalid Emails Fixed:</span>
+                        <span id="emailsFixed">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Phone Numbers Standardized:</span>
+                        <span id="phonesFixed">-</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!-- 
+Term        Type            Purpose /what is does                                example                                   Java-lke analogy 
+<div>       HTML tag        Group elements(block)/ Creates a block container     <div class="box">Text</div>              Like a panel in Java GUI
+<button>    HTML tag        Clickable action /Creates a button                    <button>Submit</button>                 Like JButton in Java Swing
+<span>      HTML tag        Styles small text (inline) /Creates an inline container  <span style="color:blue">Hi</span>   Like highlighting a word in JLabel
+-->

@@ -1,0 +1,317 @@
+
+/* Reset and base styles 
+This removes the browser’s default spacing and makes layout predictable.
+box-sizing: border-box means padding and borders are included inside the element's width.
+*/
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*
+Applies to the whole page:
+Sets a readable font
+Slight space between lines
+Dark gray text color
+Light gray background
+*/
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+
+/* Container  
+.container wraps the page contents.
+Limits width (not full screen)
+Centers it with margin: 0 auto
+White background inside a soft shadow
+Takes full height of screen (100vh = 100% of viewport height)
+*/
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Header 
+Centers the header and separates it with a gray bottom border.
+*/
+header {
+    text-align: center;
+    margin-bottom:30px;
+    padding:20px 0;
+    border-bottom:2px solid #e0e0e0;
+}
+header h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom:10px;
+}
+/* Gives title and subtitle color, size, and spacing. */
+header p {
+    color: #7f8c8d;
+    font-size:1.2em;
+}
+
+/* Sections 
+Each major section has:
+Light gray background
+Rounded corners
+Blue bar on the left
+Bold title styling
+*/
+
+section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+section h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+/* Upload section
+File input box is styled for spacing, rounded corners.
+*/
+.upload-section {
+    border-left-color: #e74c3c;
+}
+
+.upload-section input[type="file"]{
+    margin-right: 15px;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* Buttons
+Makes buttons clean, rounded, and clickable.
+*/
+button {
+    background-color: #3498db;
+    color:white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+/* On hover = darker */
+button:hover {
+    background-color: #2980b9;
+}
+/* On click = pushed-down effect 
+Each has its own hover color too.
+*/
+button:active {
+    transform: translateY(1px);
+} 
+#loadData {
+    background-color: #e74c3c;
+}
+#loadData:hover {
+    background-color: #c0392b;
+}
+
+/* Controls
+Lays out buttons in a row, and wraps if screen is small.
+*/
+.controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.controls button {
+    flex: 1;
+    min-width: 150px;
+}
+#removeEmpty {
+    background-color: #f39c12;
+}
+
+#removeEmpty:hover {
+    background-color: #e67e22;
+}
+
+#validateEmails {
+    background-color: #9b59b6;
+}
+#validateEmails:hover {
+    background-color: #8e44ad;
+}
+
+#standardizePhones {
+    background-color: #1abc9c;
+}
+
+#standardizePhones:hover {
+    background-color: #16a085;
+}
+
+#cleanAll {
+    background-color: #27ae60;
+}
+#cleanAll:hover {
+    background-color: #229954;
+}
+/* Data Display Areas 
+Displays raw and cleaned CSV data
+Scrolls if long
+Code-style font
+Light border
+
+
+*/
+#rawDataContainer, #cleanedDataContainer {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    min-height: 100px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* Table Sytles
+Makes clean readable tables
+Borders
+Padding
+Header row colored blue
+Zebra stripes on rows
+Row hover effect
+*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+table tr:hover {
+    background-color: #e8f4f8;
+}
+
+/* Stats Section */
+.stats {
+    border-left-color: #27ae60;
+}
+/* Lays out stat boxes responsively using CSS grid. */
+#statsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 15px;
+}
+.stat-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* Bold labels and big blue numbers for stats. */
+.stat-label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+.stat-item span:last-child {
+    color: #3498db;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+/* Responsive Design 
+For small screens (like phones):
+Smaller padding
+Stack buttons vertically
+Stats stack as one column
+*/
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+    .controls button {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    #statsContainer {
+        grid-template-columns: 1fr;
+    }
+}
+/* Loading State
+ Shows the app is “busy” — buttons are disabled and faded.
+*/
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Success/Error Messages 
+Green box = success
+Red box = error
+*/
+.message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/*
+Technology    | What It Does                              	  | Java Swing Analogy             	              | Real-World Analogy
+HTML 	      | Structure and layout (what is on the page)    |   JFrame, JPanel, JLabel, JButton             |  Like walls and furniture in a room (the skeleton/blueprint)
+
+CSS           | Style and appearance (how it looks)           |setBackground(), setFont(), setBorder()        | Like paint, design, and clothing — making it look good
+
+
+JavaScript    Logic and interaction (how it behaves)          | addActionListener(), event-handling methods    | Like electricity and remote control — makes things actually work
+
+*/

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Integration Dashboard - Question 4</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background-gradient"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">🔗</span>
+                    <h1>Data Integration Hub</h1>
+                </div>
+                <p class="subtitle">Real-time API data integration and monitoring</p>
+            </div>
+            <div class="header-right">
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-indicator offline"></span>
+                    <span>Connecting...</span>
+                </div>
+                <button id="refreshAllBtn" class="btn btn-primary">
+                    <span>🔄</span> Refresh All
+                </button>
+                <button id="settingsBtn" class="btn btn-secondary">
+                    <span>⚙️</span> Settings
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Data Sources Panel -->
+    <div class="data-sources-panel" id="dataSourcesPanel">
+        <div class="panel-header">
+            <h3>📡 Active Data Sources</h3>
+            <button id="addSourceBtn" class="btn btn-small btn-primary">+ Add Source</button>
+        </div>
+        <div class="sources-grid" id="sourcesGrid">
+            <!-- Data sources will be populated dynamically -->
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="container">
+        <!-- Overview Cards -->
+        <div class="overview-cards">
+            <div class="metric-card">
+                <div class="metric-icon">🌐</div>
+                <div class="metric-content">
+                    <h3 id="activeAPIs">0</h3>
+                    <p>Active APIs</p>
+                </div>
+                <div class="metric-trend up">+2</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">📊</div>
+                <div class="metric-content">
+                    <h3 id="dataPoints">0</h3>
+                    <p>Data Points</p>
+                </div>
+                <div class="metric-trend up">+156</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">⚡</div>
+                <div class="metric-content">
+                    <h3 id="lastUpdate">--:--</h3>
+                    <p>Last Update</p>
+                </div>
+                <div class="metric-trend">Live</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">📈</div>
+                <div class="metric-content">
+                    <h3 id="responseTime">-- ms</h3>
+                    <p>Avg Response</p>
+                </div>
+                <div class="metric-trend down">-15ms</div>
+            </div>
+        </div>
+
+        <!-- Live Data Dashboard -->
+        <div class="dashboard-grid">
+            <!-- Weather Widget -->
+            <div class="widget weather-widget" id="weatherWidget">
+                <div class="widget-header">
+                    <h3>🌤️ Weather Data</h3>
+                    <div class="widget-controls">
+                        <button class="refresh-btn" data-source="weather">🔄</button>
+                        <button class="settings-btn" data-source="weather">⚙️</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="weather-display">
+                        <div class="temperature" id="temperature">--°</div>
+                        <div class="weather-info">
+                            <div class="location" id="location">Loading...</div>
+                            <div class="description" id="weatherDescription">--</div>
+                            <div class="details">
+                                <span>Humidity: <span id="humidity">--%</span></span>
+                                <span>Wind: <span id="windSpeed">-- km/h</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Feed Widget -->
+            <div class="widget news-widget" id="newsWidget">
+                <div class="widget-header">
+                    <h3>📰 Latest News</h3>
+                    <div class="widget-controls">
+                        <button class="refresh-btn" data-source="news">🔄</button>
+                        <button class="settings-btn" data-source="news">⚙️</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="news-feed" id="newsFeed">
+                        <div class="loading-placeholder">Loading latest news...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cryptocurrency Widget -->
+            <div class="widget crypto-widget" id="cryptoWidget">
+                <div class="widget-header">
+                    <h3>₿ Cryptocurrency</h3>
+                    <div class="widget-controls">
+                        <button class="refresh-btn" data-source="crypto">🔄</button>
+                        <button class="settings-btn" data-source="crypto">⚙️</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="crypto-list" id="cryptoList">
+                        <div class="loading-placeholder">Loading crypto data...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Status Widget -->
+            <div class="widget status-widget" id="statusWidget">
+                <div class="widget-header">
+                    <h3>⚡ System Status</h3>
+                    <div class="widget-controls">
+                        <button class="refresh-btn" data-source="system">🔄</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <div class="status-label">API Health</div>
+                            <div class="status-value" id="apiHealth">
+                                <span class="status-indicator online"></span>
+                                Healthy
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Data Sync</div>
+                            <div class="status-value" id="dataSync">
+                                <span class="status-indicator online"></span>
+                                Synced
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Cache Status</div>
+                            <div class="status-value" id="cacheStatus">
+                                <span class="status-indicator online"></span>
+                                Active
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Uptime</div>
+                            <div class="status-value" id="uptime">00:00:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Chart Widget -->
+            <div class="widget chart-widget full-width" id="chartWidget">
+                <div class="widget-header">
+                    <h3>📈 Real-time Data Trends</h3>
+                    <div class="widget-controls">
+                        <select id="chartDataSource">
+                            <option value="weather">Weather Trends</option>
+                            <option value="crypto">Crypto Prices</option>
+                            <option value="system">System Metrics</option>
+                        </select>
+                        <button class="refresh-btn" data-source="chart">🔄</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <canvas id="realTimeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Management Section -->
+        <div class="api-management" id="apiManagement">
+            <div class="section-header">
+                <h2>🔧 API Management</h2>
+                <button id="addApiBtn" class="btn btn-primary">+ Add API Endpoint</button>
+            </div>
+            
+            <div class="api-grid" id="apiGrid">
+                <!-- API endpoints will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add API Modal -->
+    <div class="modal" id="addApiModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New API Endpoint</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addApiForm">
+                    <div class="form-group">
+                        <label>API Name</label>
+                        <input type="text" id="apiName" placeholder="e.g., Weather API" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Endpoint URL</label>
+                        <input type="url" id="apiUrl" placeholder="https://api.example.com/data" required>
+                    </div>
+                    <div class="form-group">
+                        <label>API Key (optional)</label>
+                        <input type="text" id="apiKey" placeholder="Your API key">
+                    </div>
+                    <div class="form-group">
+                        <label>Update Interval (seconds)</label>
+                        <input type="number" id="updateInterval" value="60" min="10" max="3600">
+                    </div>
+                    <div class="form-group">
+                        <label>Data Type</label>
+                        <select id="dataType">
+                            <option value="json">JSON</option>
+                            <option value="xml">XML</option>
+                            <option value="csv">CSV</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add API</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="successMessage" class="message success">
+        <span class="message-icon">✅</span>
+        <span class="message-text"></span>
+    </div>
+
+    <div id="errorMessage" class="message error">
+        <span class="message-icon">❌</span>
+        <span class="message-text"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Data Integration Hub - Real-time API monitoring and data aggregation</p>
+        <p>Built with modern web technologies and RESTful APIs</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

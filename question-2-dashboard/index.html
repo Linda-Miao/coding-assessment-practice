@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- Declares the document as an HTML5 document -->
+<html lang="en">
+<!-- Sets the language of the document to English -->
+<head>
+    <meta charset="UTF-8">
+    <!-- Sets character encoding to UTF-8 for compatibility with all characters -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Makes the page responsive to device width and sets initial zoom level to 1 -->
+
+    <title>Data Analytics Dashboard</title>
+    <!-- Sets the title of the browser tab -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Links to external stylesheet for styling the page -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <!-- Imports Chart.js library for rendering interactive charts -->
+</head>
+
+<body>
+    <!-- Start of visible content -->
+
+    <!-- Header Section -->
+    <header class="dashboard-header">
+        <!-- Top bar containing title and control buttons -->
+        <div class="header-content">
+            <!-- Container for the header title and description -->
+            <h1>📊 Analytics Dashboard</h1>
+            <!-- Main title with chart emoji -->
+            <p>Real-time data visualization and insights</p>
+            <!-- Subtitle/description of the dashboard -->
+        </div>
+
+        <div class="header-controls">
+            <!-- Container for header buttons -->
+            <button id="refreshData" class="btn-primary">🔄 Refresh Data</button>
+            <!-- Button to trigger refreshing of data -->
+            <button id="exportData" class="btn-secondary">💾 Export</button>
+            <!-- Button to trigger export (e.g. CSV) -->
+        </div>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="dashboard-container">
+        <!-- Primary content area -->
+
+        <!-- Summary Cards Section -->
+        <section class="summary-cards">
+            <!-- Cards showing key performance indicators -->
+
+            <!-- Card for Total Users -->
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <!-- Icon representing users -->
+                <div class="card-content">
+                    <h3>Total Users</h3>
+                    <!-- Label -->
+                    <span id="totalUsers" class="card-value">0</span>
+                    <!-- Dynamic value populated by JavaScript -->
+                    <small class="card-change positive">+12% this month</small>
+                    <!-- Growth trend info -->
+                </div>
+            </div>
+
+            <!-- Card for Revenue -->
+            <div class="card">
+                <div class="card-icon">💰</div>
+                <div class="card-content">
+                    <h3>Revenue</h3>
+                    <span id="totalRevenue" class="card-value">$0</span>
+                    <small class="card-change positive">+8% this month</small>
+                </div>
+            </div>
+
+            <!-- Card for Orders -->
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <div class="card-content">
+                    <h3>Orders</h3>
+                    <span id="totalOrders" class="card-value">0</span>
+                    <small class="card-change negative">-3% this month</small>
+                </div>
+            </div>
+
+            <!-- Card for Avg Rating -->
+            <div class="card">
+                <div class="card-icon">⭐</div>
+                <div class="card-content">
+                    <h3>Avg Rating</h3>
+                    <span id="avgRating" class="card-value">0.0</span>
+                    <small class="card-change positive">+0.2 this month</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-grid">
+            <!-- Container holding multiple charts -->
+
+            <!-- Monthly Sales Trend Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Monthly Sales Trend</h3>
+                    <!-- Chart title -->
+                    <div class="chart-controls">
+                        <select id="salesPeriod">
+                            <!-- Dropdown to select time range -->
+                            <option value="6months">Last 6 Months</option>
+                            <option value="12months">Last 12 Months</option>
+                            <option value="2years">Last 2 Years</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="salesChart"></canvas>
+                <!-- Chart.js will render the line or bar chart here -->
+            </div>
+
+            <!-- Sales by Category Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Sales by Category</h3>
+                    <!-- Chart title -->
+                    <div class="chart-controls">
+                        <!-- Buttons to switch between chart types -->
+                        <button class="chart-type-btn active" data-type="pie">Pie</button>
+                        <button class="chart-type-btn" data-type="doughnut">Doughnut</button>
+                        <button class="chart-type-btn" data-type="bar">Bar</button>
+                    </div>
+                </div>
+                <canvas id="categoryChart"></canvas>
+                <!-- Chart.js will render category chart here -->
+            </div>
+
+            <!-- User Activity Chart -->
+            <div class="chart-container full-width">
+                <div class="chart-header">
+                    <h3>Daily User Activity</h3>
+                    <!-- Chart title -->
+                    <div class="chart-controls">
+                        <!-- Filter buttons for different devices -->
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="desktop">Desktop</button>
+                        <button class="filter-btn" data-filter="mobile">Mobile</button>
+                        <button class="filter-btn" data-filter="tablet">Tablet</button>
+                    </div>
+                </div>
+                <canvas id="activityChart"></canvas>
+                <!-- Canvas for user activity chart -->
+            </div>
+        </section>
+
+        <!-- Data Table Section -->
+        <section class="data-table-section">
+            <!-- Section containing a searchable/filterable/sortable data table -->
+
+            <div class="table-header">
+                <h3>Recent Transactions</h3>
+                <!-- Title for the data table -->
+                <div class="table-controls">
+                    <!-- Controls for search and filter -->
+                    <input type="text" id="searchTable" placeholder="🔍 Search transactions...">
+                    <!-- Text field to search transaction records -->
+                    <select id="statusFilter">
+                        <!-- Dropdown to filter transaction status -->
+                        <option value="all">All Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="failed">Failed</option>
+                    </select>
+                    <button id="sortDate" class="sort-btn">📅 Sort by Date</button>
+                    <!-- Button to sort table by date -->
+                </div>
+            </div>
+
+            <div class="table-container">
+                <!-- Scrollable container for table -->
+                <table id="transactionsTable">
+                    <!-- Table element -->
+                    <thead>
+                        <tr>
+                            <!-- Table column headers -->
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionsBody">
+                        <!-- Dynamic transaction rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-pagination">
+                <!-- Controls to switch between pages -->
+                <button id="prevPage" class="pagination-btn">← Previous</button>
+                <span id="pageInfo">Page 1 of 5</span>
+                <button id="nextPage" class="pagination-btn">Next →</button>
+            </div>
+        </section>
+
+        <!-- Real-time Updates Section -->
+        <section class="realtime-section">
+            <!-- Section for showing live updates -->
+            <div class="realtime-header">
+                <h3>🔴 Live Activity Feed</h3>
+                <!-- Section title -->
+                <span class="status-indicator">● Live</span>
+                <!-- Status icon -->
+            </div>
+            <div id="activityFeed" class="activity-feed">
+                <!-- Live updates will be added here dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="dashboard-footer">
+        <!-- Bottom footer bar -->
+        <p>&copy; 2025 Analytics Dashboard | Last updated: <span id="lastUpdated">Never</span></p>
+        <!-- Shows copyright -->
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <!-- Screen that appears when loading data -->
+        <div class="spinner"></div>
+        <!-- Spinner animation -->
+        <p>Loading dashboard data...</p>
+        <!-- Loading message -->
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="script.js"></script>
+    <!-- Loads external JavaScript that controls interactivity -->
+</body>
+</html>

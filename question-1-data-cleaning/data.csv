@@ -1,0 +1,11 @@
+name,email,phone,city,age
+John Doe,john.doe@email.com,555-123-4567,New York,28
+Jane Smith,jane at gmail.com,5551234567,Los Angeles,34
+Bob Johnson,bob@@email.com,555.123.4567,Chicago,45
+Alice Brown,alice.brown@email,15551234567,Houston,29
+,empty@email.com,,Miami,
+Mike Wilson,mike.wilson@email.com,(555) 123-4567,Phoenix,38
+Sarah Davis,sarah.davis@email,555 123 4567,Seattle,31
+,,,Dallas,
+Tom Anderson,tom@@anderson.com,555-1234,Boston,42
+Lisa Garcia,lisa garcia@email.com,+1-555-123-4567,Denver,26

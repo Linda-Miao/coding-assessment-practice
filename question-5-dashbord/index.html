@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Management Interface - Question 5</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background-gradient"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">🗄️</span>
+                    <h1>DataBase Pro</h1>
+                </div>
+                <p class="subtitle">Advanced SQL database management and analytics</p>
+            </div>
+            <div class="header-right">
+                <div class="database-status" id="dbStatus">
+                    <span class="status-indicator online"></span>
+                    <span>Connected</span>
+                </div>
+                <button id="importBtn" class="btn btn-secondary">
+                    <span>📁</span> Import Data
+                </button>
+                <button id="exportBtn" class="btn btn-primary">
+                    <span>💾</span> Export DB
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Database Overview -->
+        <div class="overview-section">
+            <div class="overview-cards">
+                <div class="metric-card">
+                    <div class="metric-icon">📊</div>
+                    <div class="metric-content">
+                        <h3 id="tableCount">0</h3>
+                        <p>Tables</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">📝</div>
+                    <div class="metric-content">
+                        <h3 id="recordCount">0</h3>
+                        <p>Total Records</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">🔍</div>
+                    <div class="metric-content">
+                        <h3 id="queryCount">0</h3>
+                        <p>Queries Run</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">💾</div>
+                    <div class="metric-content">
+                        <h3 id="dbSize">0 KB</h3>
+                        <p>Database Size</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Left Sidebar - Database Schema -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3>📋 Database Schema</h3>
+                    <button id="createTableBtn" class="btn btn-small btn-primary">+ Table</button>
+                </div>
+                
+                <div class="tables-section">
+                    <div class="section-title">Tables</div>
+                    <div id="tablesList" class="tables-list">
+                        <!-- Tables will be populated dynamically -->
+                    </div>
+                </div>
+                
+                <div class="relationships-section">
+                    <div class="section-title">Relationships</div>
+                    <div id="relationshipsList" class="relationships-list">
+                        <!-- Relationships will be shown here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <!-- Tab Navigation -->
+                <div class="tab-navigation">
+                    <button class="tab-btn active" data-tab="query">🔍 Query Editor</button>
+                    <button class="tab-btn" data-tab="browse">📊 Data Browser</button>
+                    <button class="tab-btn" data-tab="analytics">📈 Analytics</button>
+                    <button class="tab-btn" data-tab="schema">🏗️ Schema</button>
+                </div>
+
+                <!-- Query Editor Tab -->
+                <div id="queryTab" class="tab-content active">
+                    <div class="query-section">
+                        <div class="query-header">
+                            <h3>SQL Query Editor</h3>
+                            <div class="query-controls">
+                                <select id="savedQueries">
+                                    <option value="">Saved Queries...</option>
+                                </select>
+                                <button id="saveQueryBtn" class="btn btn-small btn-secondary">💾 Save</button>
+                                <button id="runQueryBtn" class="btn btn-small btn-primary">▶️ Run</button>
+                            </div>
+                        </div>
+                        
+                        <div class="query-editor">
+                            <textarea id="sqlEditor" placeholder="-- Enter your SQL query here
+SELECT * FROM users WHERE age > 18;"></textarea>
+                        </div>
+                        
+                        <div class="query-results">
+                            <div class="results-header">
+                                <h4>Query Results</h4>
+                                <div class="results-info" id="resultsInfo">Ready to execute query</div>
+                            </div>
+                            <div id="queryResults" class="results-table">
+                                <div class="no-results">No query executed yet</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Browser Tab -->
+                <div id="browseTab" class="tab-content">
+                    <div class="browse-section">
+                        <div class="browse-header">
+                            <h3>Data Browser</h3>
+                            <div class="browse-controls">
+                                <select id="tableSelect">
+                                    <option value="">Select table...</option>
+                                </select>
+                                <input type="text" id="searchData" placeholder="🔍 Search data...">
+                                <button id="addRecordBtn" class="btn btn-small btn-primary">+ Add Record</button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-view">
+                            <div id="dataTable" class="data-display">
+                                <div class="no-data">Select a table to view data</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pagination-controls">
+                            <button id="prevPage" class="btn btn-small">← Previous</button>
+                            <span id="pageInfo">Page 1 of 1</span>
+                            <button id="nextPage" class="btn btn-small">Next →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analyticsTab" class="tab-content">
+                    <div class="analytics-section">
+                        <div class="analytics-header">
+                            <h3>Database Analytics</h3>
+                            <div class="analytics-controls">
+                                <select id="analyticsTable">
+                                    <option value="">Select table...</option>
+                                </select>
+                                <select id="analyticsType">
+                                    <option value="distribution">Data Distribution</option>
+                                    <option value="trends">Trends</option>
+                                    <option value="summary">Summary Stats</option>
+                                </select>
+                                <button id="generateAnalyticsBtn" class="btn btn-small btn-primary">📊 Generate</button>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-grid">
+                            <div class="chart-container">
+                                <canvas id="analyticsChart"></canvas>
+                            </div>
+                            
+                            <div class="stats-panel">
+                                <h4>Statistical Summary</h4>
+                                <div id="statsDisplay" class="stats-list">
+                                    <div class="no-stats">Generate analytics to see statistics</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schema Tab -->
+                <div id="schemaTab" class="tab-content">
+                    <div class="schema-section">
+                        <div class="schema-header">
+                            <h3>Database Schema Designer</h3>
+                            <div class="schema-controls">
+                                <button id="addTableBtn" class="btn btn-small btn-primary">+ Add Table</button>
+                                <button id="addRelationBtn" class="btn btn-small btn-secondary">🔗 Add Relation</button>
+                                <button id="exportSchemaBtn" class="btn btn-small btn-secondary">📄 Export Schema</button>
+                            </div>
+                        </div>
+                        
+                        <div class="schema-designer">
+                            <div id="schemaCanvas" class="schema-canvas">
+                                <!-- Schema diagram will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    
+    <!-- Create Table Modal -->
+    <div class="modal" id="createTableModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Table</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createTableForm">
+                    <div class="form-group">
+                        <label>Table Name</label>
+                        <input type="text" id="tableName" required>
+                    </div>
+                    
+                    <div class="columns-section">
+                        <div class="section-header">
+                            <h4>Columns</h4>
+                            <button type="button" id="addColumnBtn" class="btn btn-small btn-secondary">+ Add Column</button>
+                        </div>
+                        <div id="columnsContainer">
+                            <!-- Column definitions will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Table</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Record Modal -->
+    <div class="modal" id="addRecordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Record</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addRecordForm">
+                    <div id="recordFields">
+                        <!-- Form fields will be generated based on table schema -->
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Record</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Data Modal -->
+    <div class="modal" id="importModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Import Data</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="import-options">
+                    <div class="import-method">
+                        <h4>CSV Import</h4>
+                        <input type="file" id="csvFile" accept=".csv">
+                        <button id="importCsvBtn" class="btn btn-primary">Import CSV</button>
+                    </div>
+                    
+                    <div class="import-method">
+                        <h4>JSON Import</h4>
+                        <input type="file" id="jsonFile" accept=".json">
+                        <button id="importJsonBtn" class="btn btn-primary">Import JSON</button>
+                    </div>
+                    
+                    <div class="import-method">
+                        <h4>Sample Data</h4>
+                        <button id="loadSampleBtn" class="btn btn-secondary">Load Sample Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="successMessage" class="message success">
+        <span class="message-icon">✅</span>
+        <span class="message-text"></span>
+    </div>
+
+    <div id="errorMessage" class="message error">
+        <span class="message-icon">❌</span>
+        <span class="message-text"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>DataBase Pro - Advanced SQL database management and analytics platform</p>
+        <p>Built with SQL.js and modern web technologies</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

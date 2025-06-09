@@ -1,0 +1,199 @@
+{
+    "summary": {
+      "totalUsers": 12547,
+      "totalRevenue": 284750.50,
+      "totalOrders": 1876,
+      "avgRating": 4.7
+    },
+    "salesData": {
+      "6months": {
+        "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        "values": [45000, 52000, 48000, 61000, 55000, 67000]
+      },
+      "12months": {
+        "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "values": [35000, 42000, 45000, 52000, 48000, 61000, 55000, 67000, 58000, 72000, 65000, 78000]
+      },
+      "2years": {
+        "labels": ["Q1 2023", "Q2 2023", "Q3 2023", "Q4 2023", "Q1 2024", "Q2 2024", "Q3 2024", "Q4 2024"],
+        "values": [120000, 135000, 148000, 162000, 175000, 188000, 195000, 210000]
+      }
+    },
+    "categoryData": {
+      "labels": ["Electronics", "Clothing", "Home & Garden", "Sports", "Books", "Toys"],
+      "values": [85000, 65000, 45000, 35000, 25000, 20000],
+      "colors": ["#667eea", "#764ba2", "#f093fb", "#f5576c", "#4facfe", "#00f2fe"]
+    },
+    "activityData": {
+      "all": {
+        "labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        "desktop": [1200, 1900, 3000, 5000, 2300, 2000, 1500],
+        "mobile": [2800, 3200, 2800, 3500, 4200, 3800, 3200],
+        "tablet": [800, 950, 1200, 1400, 1100, 1300, 900]
+      }
+    },
+    "transactions": [
+      {
+        "id": "TXN001",
+        "customer": "John Smith",
+        "amount": 249.99,
+        "status": "completed",
+        "date": "2025-06-07",
+        "category": "Electronics"
+      },
+      {
+        "id": "TXN002",
+        "customer": "Sarah Johnson",
+        "amount": 89.50,
+        "status": "pending",
+        "date": "2025-06-07",
+        "category": "Clothing"
+      },
+      {
+        "id": "TXN003",
+        "customer": "Mike Davis",
+        "amount": 156.75,
+        "status": "completed",
+        "date": "2025-06-06",
+        "category": "Home & Garden"
+      },
+      {
+        "id": "TXN004",
+        "customer": "Emily Brown",
+        "amount": 45.20,
+        "status": "failed",
+        "date": "2025-06-06",
+        "category": "Books"
+      },
+      {
+        "id": "TXN005",
+        "customer": "David Wilson",
+        "amount": 320.00,
+        "status": "completed",
+        "date": "2025-06-05",
+        "category": "Electronics"
+      },
+      {
+        "id": "TXN006",
+        "customer": "Lisa Garcia",
+        "amount": 78.90,
+        "status": "pending",
+        "date": "2025-06-05",
+        "category": "Sports"
+      },
+      {
+        "id": "TXN007",
+        "customer": "James Miller",
+        "amount": 199.99,
+        "status": "completed",
+        "date": "2025-06-04",
+        "category": "Clothing"
+      },
+      {
+        "id": "TXN008",
+        "customer": "Anna Taylor",
+        "amount": 67.45,
+        "status": "completed",
+        "date": "2025-06-04",
+        "category": "Toys"
+      },
+      {
+        "id": "TXN009",
+        "customer": "Robert Lee",
+        "amount": 445.30,
+        "status": "pending",
+        "date": "2025-06-03",
+        "category": "Electronics"
+      },
+      {
+        "id": "TXN010",
+        "customer": "Jennifer White",
+        "amount": 125.60,
+        "status": "completed",
+        "date": "2025-06-03",
+        "category": "Home & Garden"
+      },
+      {
+        "id": "TXN011",
+        "customer": "Chris Anderson",
+        "amount": 89.99,
+        "status": "failed",
+        "date": "2025-06-02",
+        "category": "Sports"
+      },
+      {
+        "id": "TXN012",
+        "customer": "Michelle Thomas",
+        "amount": 234.75,
+        "status": "completed",
+        "date": "2025-06-02",
+        "category": "Clothing"
+      },
+      {
+        "id": "TXN013",
+        "customer": "Kevin Martinez",
+        "amount": 156.40,
+        "status": "pending",
+        "date": "2025-06-01",
+        "category": "Electronics"
+      },
+      {
+        "id": "TXN014",
+        "customer": "Rachel Clark",
+        "amount": 92.15,
+        "status": "completed",
+        "date": "2025-06-01",
+        "category": "Books"
+      },
+      {
+        "id": "TXN015",
+        "customer": "Steven Rodriguez",
+        "amount": 378.20,
+        "status": "completed",
+        "date": "2025-05-31",
+        "category": "Home & Garden"
+      }
+    ],
+    "activityFeed": [
+      {
+        "time": "2 min ago",
+        "message": "New order #TXN016 placed by Maria Lopez - $156.99",
+        "type": "order"
+      },
+      {
+        "time": "5 min ago", 
+        "message": "Payment completed for order #TXN015 - $378.20",
+        "type": "payment"
+      },
+      {
+        "time": "8 min ago",
+        "message": "New user registration: alex.parker@email.com",
+        "type": "user"
+      },
+      {
+        "time": "12 min ago",
+        "message": "Product review submitted for Electronics category - 5 stars",
+        "type": "review"
+      },
+      {
+        "time": "15 min ago",
+        "message": "Inventory alert: Sports equipment running low",
+        "type": "alert"
+      },
+      {
+        "time": "18 min ago",
+        "message": "Order #TXN014 shipped to customer",
+        "type": "shipping"
+      },
+      {
+        "time": "25 min ago",
+        "message": "New order #TXN013 placed by Kevin Martinez - $156.40",
+        "type": "order"
+      },
+      {
+        "time": "32 min ago",
+        "message": "Customer support ticket resolved for Order #TXN010",
+        "type": "support"
+      }
+    ]
+}
